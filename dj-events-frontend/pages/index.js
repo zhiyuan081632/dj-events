@@ -2,6 +2,7 @@ import Layout from '@/components/Layout'
 import Link from 'next/link'
 import EventItem from '@/components/EventItem'
 import { API_URL } from '@/config/index'
+import fetch from 'node-fetch';
 
 export default function Home({ events }) {
   return (
@@ -23,7 +24,9 @@ export default function Home({ events }) {
 }
 
 export async function getStaticProps() {
-  const res = await fetch(`${API_URL}/events?_sort=date:ASC&_limit=3`)
+  const post_url = `${API_URL}/events?_sort=date:ASC&_limit=3`;
+  console.log('post_url:', post_url);
+  const res = await fetch(post_url)
   const events = await res.json()
 
   return {
